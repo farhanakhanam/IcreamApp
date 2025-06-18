@@ -1,4 +1,4 @@
-// Farhana's Dessert App with Prices
+// Farhana's Dessert App (With descriptions)
 
 import React, { useState } from 'react';
 import {
@@ -13,44 +13,54 @@ import {
   StatusBar,
   Alert,
 } from 'react-native';
-import * as Animatable from 'react-native-animatable';
 
-// Dessert data with prices
+// Dessert data with prices and descriptions
 const iceCreamImages = [
-  { name: 'Strawberry Swirl', price: 99, uri: 'https://ohsweetbasil.com/wp-content/uploads/creamy-homemade-strawberry-ice-cream-recipe-6-scaled.jpg' },
-  { name: 'Mango Masti', price: 89, uri: 'https://theflavoursofkitchen.com/wp-content/uploads/2021/06/Mango-Ice-cream-2-1.jpg' },
-  { name: 'Vanilla Dream', price: 79, uri: 'https://barefeetinthekitchen.com/wp-content/uploads/2018/05/Easiest-Ice-Cream-1-1-of-1.jpg' },
-  { name: 'Rainbow Delight', price: 109, uri: 'https://wallpapers.com/images/hd/ice-cream-pictures-93ucnuf5kr7ghmhg.jpg' },
-  { name: 'Chocolate Blast', price: 99, uri: 'https://images4.fanpop.com/image/photos/24000000/ice-cream-Yummy-ice-cream-24070179-1600-1282.jpg' },
-  { name: 'Almond Cream', price: 89, uri: 'https://wallpapercave.com/wp/76Mk7za.jpg' },
-  { name: 'Berry Bliss', price: 109, uri: 'https://th.bing.com/th/id/OIP.u2dIKp1o5QgQmwDM5PAsagHaFj' },
+  { name: 'Strawberry Swirl', price: 99, uri: 'https://ohsweetbasil.com/wp-content/uploads/creamy-homemade-strawberry-ice-cream-recipe-6-scaled.jpg', description: 'A creamy treat bursting with fresh strawberry flavor.' },
+  { name: 'Mango Masti', price: 89, uri: 'https://theflavoursofkitchen.com/wp-content/uploads/2021/06/Mango-Ice-cream-2-1.jpg', description: 'Rich mango ice cream with tropical vibes.' },
+  { name: 'Vanilla Dream', price: 79, uri: 'https://barefeetinthekitchen.com/wp-content/uploads/2018/05/Easiest-Ice-Cream-1-1-of-1.jpg', description: 'Classic vanilla smoothness everyone loves.' },
+  { name: 'Rainbow Delight', price: 109, uri: 'https://wallpapers.com/images/hd/ice-cream-pictures-93ucnuf5kr7ghmhg.jpg', description: 'A colorful swirl of multiple fruity flavors.' },
+  { name: 'Chocolate Blast', price: 99, uri: 'https://images4.fanpop.com/image/photos/24000000/ice-cream-Yummy-ice-cream-24070179-1600-1282.jpg', description: 'Loaded with rich chocolate for chocoholics.' },
+  { name: 'Almond Cream', price: 89, uri: 'https://wallpapercave.com/wp/76Mk7za.jpg', description: 'Nutty almond flavor blended into smooth ice cream.' },
+  { name: 'Berry Bliss', price: 109, uri: 'https://th.bing.com/th/id/OIP.u2dIKp1o5QgQmwDM5PAsagHaFj', description: 'A burst of mixed berry freshness in every scoop.' },
 ];
 
 const cakeImages = [
-  { name: 'Chocolate Truffle', price: 149, uri: 'https://th.bing.com/th/id/OIP.1bZNspfoseb75Q-gL8tkZAHaJ4' },
-  { name: 'Red Velvet', price: 159, uri: 'https://th.bing.com/th/id/OIP.uNQZfoh-kjfvsQ_Pn7Ba2QHaJQ' },
-  { name: 'Black Forest', price: 139, uri: 'https://th.bing.com/th/id/OIP.0z0nrtekvi2G50aazW3HkAHaKy' },
-  { name: 'Cheesecake', price: 169, uri: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb' },
-  { name: 'Pineapple Cake', price: 129, uri: 'https://th.bing.com/th/id/OIP.eAvCvXlneVwBd5A5VeHYDQHaLG' },
-  { name: 'Mango Cake', price: 139, uri: 'https://natashaskitchen.com/wp-content/uploads/2017/05/Mango-Cake-Recipe-3.jpg' },
-  { name: 'Mixed Berry Cake', price: 159, uri: 'https://th.bing.com/th/id/OIP.BIF_S_FA3hA8Ljg5HNsJywHaLH' },
+  { name: 'Chocolate Truffle', price: 149, uri: 'https://th.bing.com/th/id/OIP.1bZNspfoseb75Q-gL8tkZAHaJ4', description: 'Decadent chocolate cake with rich truffle layers.' },
+  { name: 'Red Velvet', price: 159, uri: 'https://th.bing.com/th/id/OIP.uNQZfoh-kjfvsQ_Pn7Ba2QHaJQ', description: 'Soft and velvety red cake with cream cheese frosting.' },
+  { name: 'Black Forest', price: 139, uri: 'https://th.bing.com/th/id/OIP.0z0nrtekvi2G50aazW3HkAHaKy', description: 'German classic with chocolate, cherries, and cream.' },
+  { name: 'Cheesecake', price: 169, uri: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb', description: 'Smooth and creamy baked cheesecake.' },
+  { name: 'Pineapple Cake', price: 129, uri: 'https://th.bing.com/th/id/OIP.eAvCvXlneVwBd5A5VeHYDQHaLG', description: 'Fluffy cake topped with tangy pineapple.' },
+  { name: 'Mango Cake', price: 139, uri: 'https://natashaskitchen.com/wp-content/uploads/2017/05/Mango-Cake-Recipe-3.jpg', description: 'Fresh mango layers in a soft sponge cake.' },
+  { name: 'Mixed Berry Cake', price: 159, uri: 'https://th.bing.com/th/id/OIP.BIF_S_FA3hA8Ljg5HNsJywHaLH', description: 'Berry-loaded cake with a tangy twist.' },
 ];
 
 const pastryImages = [
-  { name: 'Chocolate Eclair', price: 69, uri: 'https://www.unileverfoodsolutions.com.au/dam/global-ufs/mcos/ANZ/calcmenu/recipes/AU-recipes/desserts-&-bakery/chocolate-eclairs/main-header.jpg' },
-  { name: 'Fruit Danish', price: 59, uri: 'https://th.bing.com/th/id/OIP.g0pVE5l6Ro9csV0X4ZSfTQHaE8' },
-  { name: 'Strawberry Tart', price: 79, uri: 'https://aseasyasapplepie.com/wp-content/uploads/2015/03/strawberry-tart-with-pastry-cream.jpg' },
-  { name: 'Almond Croissant', price: 89, uri: 'https://th.bing.com/th/id/OIP.fO9FfAVhNMg1sSmZLdpwkAHaHa' },
-  { name: 'Chocolate Puff', price: 75, uri: 'https://www.sugarsaltmagic.com/wp-content/uploads/2024/02/Chocolate-Puff-Pastries-16FEAT-500x500.jpg' },
+  { name: 'Chocolate Eclair', price: 69, uri: 'https://www.unileverfoodsolutions.com.au/dam/global-ufs/mcos/ANZ/calcmenu/recipes/AU-recipes/desserts-&-bakery/chocolate-eclairs/main-header.jpg', description: 'Choux pastry filled with cream and chocolate glaze.' },
+  { name: 'Fruit Danish', price: 59, uri: 'https://th.bing.com/th/id/OIP.g0pVE5l6Ro9csV0X4ZSfTQHaE8', description: 'Crispy danish filled with sweet fruit toppings.' },
+  { name: 'Strawberry Tart', price: 79, uri: 'https://aseasyasapplepie.com/wp-content/uploads/2015/03/strawberry-tart-with-pastry-cream.jpg', description: 'Tart base filled with cream and topped with strawberries.' },
+  { name: 'Almond Croissant', price: 89, uri: 'https://th.bing.com/th/id/OIP.fO9FfAVhNMg1sSmZLdpwkAHaHa', description: 'Flaky croissant filled with almond paste.' },
+  { name: 'Chocolate Puff', price: 75, uri: 'https://www.sugarsaltmagic.com/wp-content/uploads/2024/02/Chocolate-Puff-Pastries-16FEAT-500x500.jpg', description: 'Crispy puff pastry with gooey chocolate center.' },
 ];
 
 const cheesecakeImages = [
-  { name: 'Classic New York', price: 189, uri: 'https://i.pinimg.com/originals/0c/09/af/0c09afd6ef2745b1515088546d58d502.jpg' },
-  { name: 'Blueberry Cheesecake', price: 199, uri: 'https://www.lifeloveandsugar.com/wp-content/uploads/2021/03/Blueberry-Cheesecake4.jpg' },
-  { name: 'Strawberry Cheesecake', price: 189, uri: 'https://th.bing.com/th/id/OIP.nhDnvhl26oAXZypz5S1NnQHaLH' },
-  { name: 'Chocolate Cheesecake', price: 209, uri: 'https://www.shugarysweets.com/wp-content/uploads/2020/02/no-bake-chocolate-cheesecake-6.jpg' },
-  { name: 'Oreo Cheesecake', price: 199, uri: 'https://th.bing.com/th/id/OIP.M9Ebocoy7rIRRLbKX8jSWwHaLH' },
+  { name: 'Classic New York', price: 189, uri: 'https://i.pinimg.com/originals/0c/09/af/0c09afd6ef2745b1515088546d58d502.jpg', description: 'Smooth baked cheesecake with rich creaminess.' },
+  { name: 'Blueberry Cheesecake', price: 199, uri: 'https://www.lifeloveandsugar.com/wp-content/uploads/2021/03/Blueberry-Cheesecake4.jpg', description: 'Tangy blueberries meet creamy cheesecake.' },
+  { name: 'Strawberry Cheesecake', price: 189, uri: 'https://th.bing.com/th/id/OIP.nhDnvhl26oAXZypz5S1NnQHaLH', description: 'Sweet strawberries on top of soft cheesecake.' },
+  { name: 'Chocolate Cheesecake', price: 209, uri: 'https://www.shugarysweets.com/wp-content/uploads/2020/02/no-bake-chocolate-cheesecake-6.jpg', description: 'Decadent cheesecake with rich chocolate flavor.' },
+  { name: 'Oreo Cheesecake', price: 199, uri: 'https://th.bing.com/th/id/OIP.M9Ebocoy7rIRRLbKX8jSWwHaLH', description: 'Oreo lovers’ dream with cookie crust and cream.' },
 ];
+
+const cookieImages = [
+  { name: 'Chocolate Chip', price: 49, uri: 'https://th.bing.com/th/id/OIP.DvtMOyIlvS9WIwvBA_EI2AHaHa', description: 'Classic cookie with gooey chocolate chips.' },
+  { name: 'Oatmeal Raisin', price: 45, uri: 'https://healthyfitnessmeals.com/wp-content/uploads/2021/06/Healthy-oatmeal-raisin-cookies-9.jpg', description: 'Healthy oats with sweet chewy raisins.' },
+  { name: 'Peanut Butter', price: 55, uri: 'https://th.bing.com/th/id/OIP.FekT_jXvjmHDdh1E0akn6wAAAA', description: 'Buttery cookie with nutty richness.' },
+  { name: 'Double Chocolate', price: 59, uri: 'https://celebratingsweets.com/wp-content/uploads/2021/05/Double-Chocolate-Chip-Cookies-1-5.webp', description: 'Twice the chocolate, twice the fun.' },
+  { name: 'Butter Cookies', price: 40, uri: 'https://www.cookingclassy.com/wp-content/uploads/2018/12/butter-cookies-5.jpg', description: 'Melt-in-mouth buttery goodness.' },
+];
+
+// (continue using your existing App code from here onward...)
+
 
 export default function App() {
   const [screen, setScreen] = useState('login');
@@ -60,17 +70,9 @@ export default function App() {
   const [cart, setCart] = useState([]);
   const [category, setCategory] = useState('icecream');
 
-  const allItems = {
-    icecream: iceCreamImages,
-    cake: cakeImages,
-    pastry: pastryImages,
-    cheesecake: cheesecakeImages,
-  };
-
+  const allItems = { icecream: iceCreamImages, cake: cakeImages, pastry: pastryImages, cheesecake: cheesecakeImages, cookies: cookieImages };
   const items = allItems[category] || [];
-  const filteredItems = items.filter(item =>
-    item.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredItems = items.filter(item => item.name.toLowerCase().includes(search.toLowerCase()));
 
   const addToCart = (item) => {
     const exists = cart.find(c => c.name === item.name);
@@ -86,10 +88,7 @@ export default function App() {
   };
 
   const decreaseQty = (item) => {
-    const updated = cart.map(c =>
-      c.name === item.name ? { ...c, qty: c.qty - 1 } : c
-    ).filter(c => c.qty > 0);
-    setCart(updated);
+    setCart(cart.map(c => c.name === item.name ? { ...c, qty: c.qty - 1 } : c).filter(c => c.qty > 0));
   };
 
   const placeOrder = () => {
@@ -108,11 +107,8 @@ export default function App() {
       {/* LOGIN PAGE */}
       {screen === 'login' && (
         <>
-          <Animatable.Text animation="fadeInDown" style={styles.title}>👋 Welcome Back!</Animatable.Text>
-          <Image
-            source={{ uri: 'https://cdn-icons-png.flaticon.com/512/219/219983.png' }}
-            style={{ width: 100, height: 100, marginVertical: 20 }}
-          />
+          <Text style={styles.title}>👋 Welcome Back!</Text>
+          <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/219/219983.png' }} style={{ width: 100, height: 100, marginVertical: 20 }} />
           <TextInput placeholder="Email" value={email} onChangeText={setEmail} style={styles.input} />
           <TextInput placeholder="Password" value={password} onChangeText={setPassword} style={styles.input} secureTextEntry />
           <Pressable style={styles.button} onPress={() => {
@@ -130,9 +126,9 @@ export default function App() {
       {/* LANDING PAGE */}
       {screen === 'landing' && (
         <>
-          <Animatable.Text animation="fadeInDown" style={styles.greeting}>Hello, {email.split('@')[0]}!</Animatable.Text>
-          <Animatable.Text animation="bounceIn" style={styles.title}>🍰 Welcome to Farhana's Dessert World</Animatable.Text>
-          <Image source={{ uri: 'https://th.bing.com/th/id/OIP.otxSLbzSTxdQqfklBJpENwHaEK?w=324&h=182&c=7&r=0&o=7&pid=1.7&rm=3' }} style={{ width: 250, height: 200, borderRadius: 10, marginBottom: 20 }} />
+          <Text style={styles.greeting}>Hello, {email.split('@')[0]}!</Text>
+          <Text style={styles.title}>🍰 Welcome to Farhana's Dessert World</Text>
+          <Image source={{ uri: 'https://th.bing.com/th/id/OIP.otxSLbzSTxdQqfklBJpENwHaEK' }} style={{ width: 250, height: 200, borderRadius: 10, marginBottom: 20 }} />
           <Pressable style={styles.button} onPress={() => setScreen('home')}>
             <Text style={styles.buttonText}>🍨 Explore Desserts</Text>
           </Pressable>
@@ -142,33 +138,36 @@ export default function App() {
         </>
       )}
 
-      {/* HOME SCREEN */}
+      {/* HOME PAGE */}
       {screen === 'home' && (
         <>
-          <Animatable.Text animation="fadeInDown" style={styles.title}>🍬 Pick Your Favorites</Animatable.Text>
+          <Text style={styles.title}>🍬 Pick Your Favorites</Text>
           <View style={styles.categorySwitch}>
-            {['icecream', 'cake', 'pastry', 'cheesecake'].map(cat => (
+            {Object.keys(allItems).map(cat => (
               <Pressable key={cat} style={[styles.categoryBtn, category === cat && styles.activeTab]} onPress={() => setCategory(cat)}>
-                <Text style={styles.tabText}>{{
-                  icecream: 'Ice Creams',
-                  cake: 'Cakes',
-                  pastry: 'Pastries',
-                  cheesecake: 'Cheesecakes',
-                }[cat]}</Text>
+                <Text style={styles.tabText}>
+                  {{
+                    icecream: 'Ice Creams',
+                    cake: 'Cakes',
+                    pastry: 'Pastries',
+                    cheesecake: 'Cheesecakes',
+                    cookies: 'Cookies',
+                  }[cat]}
+                </Text>
               </Pressable>
             ))}
           </View>
           <TextInput placeholder="Search desserts..." value={search} onChangeText={setSearch} style={styles.input} />
           <ScrollView contentContainerStyle={styles.scrollContainer}>
             {filteredItems.map((item, index) => (
-              <Animatable.View key={index} animation="bounceIn" delay={index * 100} style={styles.card}>
+              <View key={index} style={styles.card}>
                 <Image source={{ uri: item.uri }} style={styles.image} />
                 <Text style={styles.label}>{item.name}</Text>
                 <Text style={styles.price}>₹{item.price}</Text>
                 <Pressable style={styles.button} onPress={() => addToCart(item)}>
                   <Text style={styles.buttonText}>Add to Cart 🛒</Text>
                 </Pressable>
-              </Animatable.View>
+              </View>
             ))}
           </ScrollView>
           <Pressable style={[styles.button, { backgroundColor: '#6c757d' }]} onPress={() => setScreen('cart')}>
@@ -183,7 +182,7 @@ export default function App() {
       {/* CART SCREEN */}
       {screen === 'cart' && (
         <>
-          <Animatable.Text animation="pulse" style={styles.title}>🛒 Your Cart</Animatable.Text>
+          <Text style={styles.title}>🛒 Your Cart</Text>
           <ScrollView contentContainerStyle={styles.scrollContainer}>
             {cart.length === 0 ? (
               <Text style={styles.label}>Your cart is empty</Text>
@@ -219,7 +218,7 @@ export default function App() {
   );
 }
 
-// Styles
+// Styles (unchanged)
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff0f5', alignItems: 'center', padding: 20 },
   scrollContainer: { alignItems: 'center', paddingBottom: 20 },
